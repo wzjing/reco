@@ -37,7 +37,12 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/graphics/cover.jpeg
+    - assets/graphics/cover.jpg
+    - assets/graphics/geek.jpg
+    - assets/graphics/internet.jpg
+    - assets/graphics/people.jpg
+    - assets/graphics/program.jpg
+    - assets/graphics/science.jpg
 
   # To add assets to your application, add an assets section, like this:
   # assets:

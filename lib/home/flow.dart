@@ -2,6 +2,12 @@ import 'package:flutter/material.dart';
 import 'dart:ui';
 
 class CardDelegate extends FlowDelegate {
+
+  double spacing;
+  int spanCount;
+
+  CardDelegate({this.spacing = 12, this.spanCount = 2});
+
   @override
   void paintChildren(FlowPaintingContext context) {
     double x = 0;
@@ -11,8 +17,6 @@ class CardDelegate extends FlowDelegate {
         x = 0;
         y += context.getChildSize(i).height;
       }
-      print(
-          'x: $x, y: $y item width: ${context.getChildSize(i).width}, width: ${context.size.width}');
       context.paintChild(i, transform: Matrix4.translationValues(x, y, 0));
       x += context.getChildSize(i).width;
     }
@@ -45,6 +49,8 @@ class FlowCard extends StatefulWidget {
       this.width = 200,
       this.height = 150});
 
+      
+
   @override
   State<StatefulWidget> createState() {
     return _FlowCardState();
@@ -56,11 +62,13 @@ class _FlowCardState extends State<FlowCard> {
   Widget build(BuildContext context) {
     var cover = widget.image != null
         ? Image.network(widget.image)
-        : Image.asset('assets/graphics/cover.jpeg');
+        : Image.asset('assets/graphics/cover.jpg');
 
     var textStyle = TextStyle(
-      color: Color(0xFFFFFF),
+      color: Colors.white,
       fontSize: 14,
+      fontWeight: FontWeight.bold,
+      background: Paint()..color = Colors.transparent,
     );
     return GestureDetector(
       onTap: widget.onPressed,
@@ -71,19 +79,31 @@ class _FlowCardState extends State<FlowCard> {
             image: DecorationImage(image: cover.image, fit: BoxFit.cover),
             borderRadius: BorderRadius.circular(8),
             shape: BoxShape.rectangle),
-        child: Align(
+        child: Container(
+          padding: EdgeInsets.all(5),
           alignment: Alignment.bottomLeft,
-          child: BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-            child: Container(
-
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 3, vertical: 3),
-                child: Text(
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(4),
+            child: Stack(
+              alignment: Alignment.center,
+              children: <Widget>[
+                BackdropFilter(
+                  filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                  child: Container(
+                    width: 56,
+                    height: 24,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(4),
+                      shape: BoxShape.rectangle,
+                      color: Colors.white.withOpacity(0.3),
+                    ),
+                  ),
+                ),
+                Text(
                   widget.tag,
                   style: textStyle,
                 ),
-              ),
+              ],
             ),
           ),
         ),

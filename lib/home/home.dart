@@ -11,14 +11,14 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MainToolbar(
         child: Center(
-          child: TabTitle(titles: <String>['热点', '订阅'],),
+          child: TabTitle(
+            titles: <String>['热点', '订阅'],
+          ),
         ),
       ),
       primary: true,
@@ -29,10 +29,15 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             children: <Widget>[
               Poster('2018年度总结'),
-              FlowCard(
-                tag: 'Test',
-                onPressed: () => Navigator.pushNamed(context, '/news'),
-              )
+              Flow(
+                delegate: CardDelegate(),
+                children: <Widget>[
+                  FlowCard(
+                    tag: 'Test',
+                    onPressed: () => Navigator.pushNamed(context, '/news'),
+                  ),
+                ],
+              ),
             ],
           ),
         ),
@@ -50,7 +55,6 @@ class Poster extends StatefulWidget {
   State<StatefulWidget> createState() {
     return _PosterState();
   }
-
 }
 
 class _PosterState extends State<Poster> {
@@ -64,7 +68,7 @@ class _PosterState extends State<Poster> {
           child: DecoratedBox(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/graphics/cover.jpeg'),
+                image: AssetImage('assets/graphics/cover.jpg'),
                 fit: BoxFit.fitWidth,
               ),
               borderRadius: BorderRadius.all(Radius.circular(6)),
