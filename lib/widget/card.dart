@@ -1,30 +1,55 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'dart:ui';
 
-class CardDelegate extends FlowDelegate {
+class Poster extends StatefulWidget {
+  final String title;
 
-  double spacing;
-  int spanCount;
-
-  CardDelegate({this.spacing = 12, this.spanCount = 2});
+  Poster(this.title);
 
   @override
-  void paintChildren(FlowPaintingContext context) {
-    double x = 0;
-    double y = 0;
-    for (int i = 0; i < context.childCount; i++) {
-      if (x > 0 && (x + context.getChildSize(i).width) > context.size.width) {
-        x = 0;
-        y += context.getChildSize(i).height;
-      }
-      context.paintChild(i, transform: Matrix4.translationValues(x, y, 0));
-      x += context.getChildSize(i).width;
-    }
+  State<StatefulWidget> createState() {
+    return _PosterState();
   }
+}
 
+class _PosterState extends State<Poster> {
   @override
-  bool shouldRepaint(FlowDelegate oldDelegate) {
-    return oldDelegate != this;
+  Widget build(BuildContext context) {
+    return AspectRatio(
+      aspectRatio: 2,
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/graphics/cover.jpg'),
+            fit: BoxFit.fitWidth,
+          ),
+          borderRadius: BorderRadius.all(Radius.circular(6)),
+          boxShadow: <BoxShadow>[
+            BoxShadow(
+              color: Color(0x2F000000),
+              offset: Offset(6, 3),
+              blurRadius: 6,
+              spreadRadius: 0,
+            ),
+          ],
+        ),
+        child: Align(
+          alignment: Alignment.topRight,
+          child: Card(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(4))),
+            clipBehavior: Clip.antiAlias,
+            elevation: 0,
+            margin: EdgeInsets.all(10),
+            child: Padding(
+              padding: EdgeInsets.fromLTRB(6, 2, 6, 2),
+              child: Text(widget.title),
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }
 
@@ -42,14 +67,18 @@ class FlowCard extends StatefulWidget {
   // click event
   final VoidCallback onPressed;
 
+  Size get size => Size(width, height);
+
+  set size(Size value) => null;
+
   FlowCard(
       {this.image,
       this.tag = 'TAG',
       @required this.onPressed,
       this.width = 200,
-      this.height = 150});
-
-      
+      this.height = 150}) {
+    this.size = Size(this.width, this.height);
+  }
 
   @override
   State<StatefulWidget> createState() {
