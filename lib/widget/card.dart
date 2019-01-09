@@ -2,18 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'dart:ui';
 
-class Poster extends StatefulWidget {
+class CoverCard extends StatefulWidget {
   final String title;
 
-  Poster(this.title);
+  CoverCard(this.title);
 
   @override
   State<StatefulWidget> createState() {
-    return _PosterState();
+    return _CoverCardState();
   }
 }
 
-class _PosterState extends State<Poster> {
+class _CoverCardState extends State<CoverCard> {
   @override
   Widget build(BuildContext context) {
     return AspectRatio(
@@ -53,12 +53,12 @@ class _PosterState extends State<Poster> {
   }
 }
 
-class FlowCard extends StatefulWidget {
+class TitleCard extends StatefulWidget {
   final double width;
 
   final double height;
 
-  // backgorund image
+  // background image
   final String image;
 
   // text tag to show
@@ -71,26 +71,26 @@ class FlowCard extends StatefulWidget {
 
   set size(Size value) => null;
 
-  FlowCard(
+  TitleCard(
       {this.image,
       this.tag = 'TAG',
       @required this.onPressed,
-      this.width = 200,
-      this.height = 150}) {
+      this.width = 180,
+      this.height = 120}) {
     this.size = Size(this.width, this.height);
   }
 
   @override
   State<StatefulWidget> createState() {
-    return _FlowCardState();
+    return _TitleCardState();
   }
 }
 
-class _FlowCardState extends State<FlowCard> {
+class _TitleCardState extends State<TitleCard> {
   @override
   Widget build(BuildContext context) {
     var cover = widget.image != null
-        ? Image.network(widget.image)
+        ? Image.asset(widget.image)
         : Image.asset('assets/graphics/cover.jpg');
 
     var textStyle = TextStyle(

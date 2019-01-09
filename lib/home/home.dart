@@ -30,22 +30,37 @@ class _HomePageState extends State<HomePage> {
           scrollDirection: Axis.vertical,
           child: Column(
             children: <Widget>[
-              Poster('2018年度总结'),
+              CoverCard('2018年度总结'),
               Container(
                 color: Colors.white24,
-                child: Flow(
-                  delegate: CardDelegate(),
+                child: Wrap(
+                  spacing: 8,
+                  runSpacing: 12,
+                  direction: Axis.horizontal,
                   children: <Widget>[
-                    FlowCard(
-                      tag: 'Test',
+                    TitleCard(
+                      tag: '互联网',
+                      image: 'assets/graphics/internet.jpg',
                       onPressed: () => Navigator.pushNamed(context, '/news'),
                     ),
-                    FlowCard(
-                      tag: 'Test',
+                    TitleCard(
+                      tag: '极客',
+                      image: 'assets/graphics/geek.jpg',
                       onPressed: () => Navigator.pushNamed(context, '/news'),
                     ),
-                    FlowCard(
-                      tag: 'Test',
+                    TitleCard(
+                      tag: '科学',
+                      image: 'assets/graphics/science.jpg',
+                      onPressed: () => Navigator.pushNamed(context, '/news'),
+                    ),
+                    TitleCard(
+                      tag: '软件',
+                      image: 'assets/graphics/program.jpg',
+                      onPressed: () => Navigator.pushNamed(context, '/news'),
+                    ),
+                    TitleCard(
+                      tag: '人物',
+                      image: 'assets/graphics/people.jpg',
                       onPressed: () => Navigator.pushNamed(context, '/news'),
                     ),
                   ],
